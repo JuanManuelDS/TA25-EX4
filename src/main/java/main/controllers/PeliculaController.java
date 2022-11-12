@@ -37,7 +37,7 @@ public class PeliculaController {
 		return peliculaService.guardarPelicula(pelicula);
 	}
 	
-	@PutMapping("/pelicula/{codigo}")
+	@PutMapping("/peliculas/{codigo}")
 	public Pelicula actualizarAlmacen(@PathVariable(name="codigo") Long codigo, @RequestBody Pelicula pelicula) {
 		
 		Pelicula peliculaSeleccionada = peliculaService.buscarPelicula(codigo);
@@ -48,7 +48,7 @@ public class PeliculaController {
 		return peliculaService.actualizarPelicula(peliculaSeleccionada);
 	}
 	
-	@DeleteMapping("/almacenes/{codigo}")
+	@DeleteMapping("/peliculas/{codigo}")
 	public void eliminarAlmacen(@PathVariable(name="codigo")Long codigo) {
 		peliculaService.eliminarPelicula(codigo);
 	}

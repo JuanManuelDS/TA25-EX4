@@ -1,16 +1,18 @@
-drop table if exists salas;
-CREATE TABLE salas (
-codigo INT AUTO_INCREMENT,
-nombre VARCHAR(100) KEY,
-pelicula INT REFERENCES peliculas(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
-PRIMARY KEY (codigo));
 
 drop table if exists peliculas;
 CREATE TABLE peliculas (
 codigo INT AUTO_INCREMENT,
-nombre VARCHAR(100) KEY,
+nombre VARCHAR(100),
 calificacion_edad INT,
 PRIMARY KEY (codigo));
+
+drop table if exists salas;
+CREATE TABLE salas (
+codigo INT AUTO_INCREMENT,
+nombre VARCHAR(100),
+pelicula INT not null REFERENCES peliculas(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (codigo));
+
 
 insert into peliculas (nombre, calificacion_edad) values ('Back to the Future', 17);
 insert into peliculas (nombre, calificacion_edad) values ('Case départ', 9);
