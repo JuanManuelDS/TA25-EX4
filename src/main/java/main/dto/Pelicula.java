@@ -2,14 +2,17 @@ package main.dto;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="peliculas")
@@ -25,26 +28,19 @@ public class Pelicula {
 	@Column
 	private int calificacion_edad;
 	
-	@OneToMany
-	@JoinColumn(name="codigo")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pelicula")
 	private List<Sala> salas;
-
-	public Pelicula(Long codigo, String nombre, int calificacion_edad) {
+	
+	public Pelicula(Long codigo, String nombre, int calificacion_edad, List<Sala> salas) {
+		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.calificacion_edad = calificacion_edad;
+		this.salas = salas;
 	}
-	
+
 	public Pelicula() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public Long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getNombre() {
@@ -61,6 +57,20 @@ public class Pelicula {
 
 	public void setCalificacion_edad(int calificacion_edad) {
 		this.calificacion_edad = calificacion_edad;
+	}
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY)
+	public List<Sala> getSalas() {
+		return salas;
+	}
+
+	public void setSalas(List<Sala> salas) {
+		this.salas = salas;
+	}
+
+	public Long getCodigo() {
+		return codigo;
 	}
 
 	@Override
